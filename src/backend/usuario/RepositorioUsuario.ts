@@ -1,15 +1,13 @@
 import { Usuario } from "@/core/model/Usuario";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
 
 export default class RepositorioUsuario {
-    private static db: PrismaClient = new PrismaClient();
-
     static async listar(){
-        return this.db.usuario.findMany();
+        return prisma.usuario.findMany();
     }
 
     static async salvar(usuario: Usuario): Promise<Usuario>{
-        return this.db.usuario.upsert({
+        return prisma.usuario.upsert({
             where: {id: usuario.id},
             update: usuario,
             create: usuario
@@ -17,18 +15,18 @@ export default class RepositorioUsuario {
     }
 
     static async obterTodos(): Promise<Usuario[]>{
-        return await this.db.usuario.findMany();
+        return await prisma.usuario.findMany();
     }
 
     static async obterPorId(id: string): Promise<Usuario | null>{
-        const usuario = await this.db.usuario.findUnique({
+        const usuario = await prisma.usuario.findUnique({
             where: {id}
         });
         return usuario as Usuario
     }
 
     static async excluir (id: string): Promise<void>{
-        await this.db.usuario.delete({
+        await prisma.usuario.delete({
             where: {id}
         });
     }
