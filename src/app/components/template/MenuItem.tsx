@@ -1,4 +1,3 @@
-import { IconHome } from "@tabler/icons-react";
 import Link from "next/link";
 import { ElementType } from "react";
 

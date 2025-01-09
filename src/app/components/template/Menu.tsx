@@ -1,5 +1,4 @@
 import { IconHome, IconUser } from '@tabler/icons-react';
-import Link from 'next/link';
 import MenuItem from './MenuItem';
 
 
