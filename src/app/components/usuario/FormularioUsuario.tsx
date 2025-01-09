@@ -28,7 +28,8 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
   const handleSalvar = async () => {
     try {
       await props.onSalvar();
-      toast.success("Usuário salvo com sucesso!");
+      // Remover a notificação duplicada
+      // toast.success("Usuário salvo com sucesso!");
     } catch (error) {
       console.error("Erro ao salvar usuário:", error);
       toast.error("Erro ao salvar usuário.");
@@ -38,7 +39,8 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
   const handleExcluir = async () => {
     try {
       await props.excluir();
-      toast.error("Usuário excluído com sucesso!");
+      // Remover a notificação duplicada
+      // toast.error("Usuário excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir usuário:", error);
       toast.error("Erro ao excluir usuário.");
