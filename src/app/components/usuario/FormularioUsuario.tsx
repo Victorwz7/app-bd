@@ -2,6 +2,8 @@ import { Usuario } from "@/core/model/Usuario";
 import InputTexto from "../shared/inputTexto";
 import { useState } from "react";
 import { toast } from "react-toastify";
+// Adicionar importação do ícone de olho
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export interface FormularioUsuarioProps {
   usuario: Partial<Usuario>;
@@ -13,6 +15,7 @@ export interface FormularioUsuarioProps {
 
 export default function FormularioUsuario(props: FormularioUsuarioProps) {
   const [emailValido, setEmailValido] = useState(true);
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
   const validarEmail = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -31,8 +34,8 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
       // Remover a notificação duplicada
       // toast.success("Usuário salvo com sucesso!");
     } catch (error) {
-      console.error("Erro ao salvar usuário:", error);
-      toast.error("Erro ao salvar usuário.");
+      console.error("Erro ao salvar usuario:", error);
+      toast.error("Erro ao salvar usuario.");
     }
   };
 
@@ -42,9 +45,13 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
       // Remover a notificação duplicada
       // toast.error("Usuário excluído com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir usuário:", error);
-      toast.error("Erro ao excluir usuário.");
+      console.error("Erro ao excluir usuario:", error);
+      toast.error("Erro ao excluir usuario.");
     }
+  };
+
+  const toggleMostrarSenha = () => {
+    setMostrarSenha(!mostrarSenha);
   };
 
   return (
@@ -64,14 +71,23 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
         onChange={handleEmailChange}
       />
       {!emailValido && <span className="text-red-500">E-mail inválido</span>}
-      <InputTexto
-        label="Senha"
-        type="password"
-        value={props.usuario.senha}
-        onChange={(e) =>
-          props.onchange?.({ ...props.usuario, senha: e.target.value })
-        }
-      />
+      <div className="relative">
+        <InputTexto
+          label="Senha"
+          type={mostrarSenha ? "text" : "password"}
+          value={props.usuario.senha}
+          onChange={(e) =>
+            props.onchange?.({ ...props.usuario, senha: e.target.value })
+          }
+        />
+        <button
+          type="button"
+          className="absolute right-2 top-2"
+          onClick={toggleMostrarSenha}
+        >
+          {mostrarSenha ? <FaEyeSlash /> : <FaEye />}
+        </button>
+      </div>
 
       <div className="flex justify-between">
         <div className="flex gap-5">

@@ -2,7 +2,7 @@
 
 import { Usuario } from "@/core/model/Usuario";
 import Id from "@/core/utils/id";
-import RepositorioUsuario from "./RepositorioUsuario";
+import UsuarioRepositorio from "./UsuarioRepositorio";
 
 export default async function salvarUsuario(usuario: Partial<Usuario>){
 
@@ -11,5 +11,5 @@ export default async function salvarUsuario(usuario: Partial<Usuario>){
         id: usuario.id ?? Id.novo,
     }
 
-    return RepositorioUsuario.salvar(novoUsuario as Usuario)
+    return UsuarioRepositorio.salvar(novoUsuario as Usuario)
 }
