@@ -1,7 +1,9 @@
 'use server';
-import UsuarioRepositorio from "./UsuarioRepositorio";
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export default async function obterTodos(){
 
-    return UsuarioRepositorio.obterTodos()
+    return await prisma.usuario.findMany();
 }
