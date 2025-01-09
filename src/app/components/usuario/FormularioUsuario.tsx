@@ -25,14 +25,24 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
     props.onchange?.({ ...props.usuario, email });
   };
 
-  const handleSalvar = () => {
-    props.onSalvar();
-    toast.success("Usuário salvo com sucesso!");
+  const handleSalvar = async () => {
+    try {
+      await props.onSalvar();
+      toast.success("Usuário salvo com sucesso!");
+    } catch (error) {
+      console.error("Erro ao salvar usuário:", error);
+      toast.error("Erro ao salvar usuário.");
+    }
   };
 
-  const handleExcluir = () => {
-    props.excluir();
-    toast.error("Usuário excluído com sucesso!");
+  const handleExcluir = async () => {
+    try {
+      await props.excluir();
+      toast.error("Usuário excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir usuário:", error);
+      toast.error("Erro ao excluir usuário.");
+    }
   };
 
   return (

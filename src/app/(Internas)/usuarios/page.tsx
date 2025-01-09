@@ -5,11 +5,32 @@ import FormularioUsuario from "@/app/components/usuario/FormularioUsuario";
 import ListaUsuario from "@/app/components/usuario/ListaUsuario";
 import { IconPlus, IconUser } from "@tabler/icons-react";
 import useUsuarios from "@/app/data/hooks/useUsuarios";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
-    const {usuario, usuarios, salvarUsuario, excluir, alterarUsuario} = useUsuarios()
+  const { usuario, usuarios, salvarUsuario, excluir, alterarUsuario } = useUsuarios();
+
+  const handleSalvarUsuario = async () => {
+    try {
+      await salvarUsuario();
+      toast.success("Usuário salvo com sucesso!");
+    } catch (error) {
+      console.error("Erro ao salvar usuário:", error);
+      toast.error("Erro ao salvar usuário.");
+    }
+  };
+
+  const handleExcluirUsuario = async () => {
+    try {
+      await excluir();
+      toast.error("Usuário excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro ao excluir usuário:", error);
+      toast.error("Erro ao excluir usuário.");
+    }
+  };
+
   return (
     <Pagina className="flex flex-col gap-10">
       <ToastContainer />
@@ -23,9 +44,9 @@ export default function Page() {
         <FormularioUsuario
           usuario={usuario}
           onchange={alterarUsuario}
-          onSalvar={salvarUsuario}
+          onSalvar={handleSalvarUsuario}
           onCancelar={() => alterarUsuario(null)}
-          excluir={excluir}
+          excluir={handleExcluirUsuario}
         />
       ) : (
         <>
