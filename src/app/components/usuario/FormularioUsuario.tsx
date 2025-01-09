@@ -89,7 +89,7 @@ export default function FormularioUsuario(props: FormularioUsuarioProps) {
           </button>
         </div>
         <button
-          className="bg-red-500 px-4 py-2 roudend-md hover:bg-red-300"
+          className="bg-red-500 px-4 py-2 roudend-md hover:bg-red-299"
           onClick={handleExcluir}
         >
           Excluir
