@@ -1,8 +1,7 @@
 'use server';
 
-import RepositorioUsuario from "./RepositorioUsuario";
+import UsuarioRepositorio from "./UsuarioRepositorio";
 
-export default async function excluirUsuario(id: string){
-
-    return RepositorioUsuario.excluir(id)
+export default async function excluirUsuario(id: string) {
+    return UsuarioRepositorio.excluir(id);
 }

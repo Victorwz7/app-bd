@@ -5,7 +5,7 @@ export default class UsuarioRepositorio {
     static async listar(): Promise<Usuario[]> {
         const { data, error } = await supabase
             .from('Usuario') // Nome da tabela no Supabase
-            .select('*');
+            .select('id, email, nome, senha'); // Seleciona os campos específicos
 
         if (error) {
             throw new Error(`Erro ao listar usuários: ${error.message}`);
@@ -14,25 +14,20 @@ export default class UsuarioRepositorio {
         return data as Usuario[];
     }
 
-    static async salvar(usuario: Usuario): Promise<Usuario> {
-        const { data, error } = await supabase
+    static async salvar(usuario: Usuario): Promise<void> {
+        const { error } = await supabase
             .from('Usuario') // Nome da tabela no Supabase
             .upsert([usuario]); // Upsert: insere ou atualiza
 
         if (error) {
             throw new Error(`Erro ao salvar usuário: ${error.message}`);
         }
-
-        if (!data) {
-            throw new Error('Erro ao salvar usuário: data é null');
-        }
-        return data[0] as Usuario;
     }
 
     static async obterTodos(): Promise<Usuario[]> {
         const { data, error } = await supabase
-            .from('Usuarios') // Nome da tabela no Supabase
-            .select('*');
+            .from('Usuario') // Nome da tabela no Supabase
+            .select('id, email, nome, senha'); // Seleciona os campos específicos
 
         if (error) {
             throw new Error(`Erro ao obter todos os usuários: ${error.message}`);
@@ -44,7 +39,7 @@ export default class UsuarioRepositorio {
     static async obterPorId(id: string): Promise<Usuario | null> {
         const { data, error } = await supabase
             .from('Usuario') // Nome da tabela no Supabase
-            .select('*')
+            .select('id, email, nome, senha') // Seleciona os campos específicos
             .eq('id', id)
             .single(); // Garante que retorna apenas um registro
 
