@@ -14,14 +14,19 @@ export default class UsuarioRepositorio {
         return data as Usuario[];
     }
 
-    static async salvar(usuario: Usuario): Promise<void> {
-        const { error } = await supabase
+    static async salvar(usuario: Usuario): Promise<Usuario> {
+        const { data, error } = await supabase
             .from('Usuario') // Nome da tabela no Supabase
             .upsert([usuario]); // Upsert: insere ou atualiza
 
         if (error) {
             throw new Error(`Erro ao salvar usuário: ${error.message}`);
         }
+
+        if (!data) {
+            throw new Error('Erro ao salvar usuário: data é null');
+        }
+        return data[0] as Usuario;
     }
 
     static async obterTodos(): Promise<Usuario[]> {
